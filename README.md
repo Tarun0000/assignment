@@ -1,1 +1,33 @@
 # assignment
+# Image Processor
+
+- **Purpose**: Processes image data from CSV files asynchronously.
+- **Features**:
+  - Upload CSV with product info and image URLs.
+  - Validates CSV format.
+  - Compresses images to 50% quality.
+  - Stores processed data in PostgreSQL.
+  - Returns unique request ID.
+  - Provides status checking API.
+  - Optional webhook support.
+- **Tech Stack**:
+  - Python (FastAPI)
+  - PostgreSQL
+  - Pillow (image processing)
+  - Asyncio (async tasks)
+- **Setup**:
+  - Install dependencies: `pip install -r requirements.txt`
+  - Set up PostgreSQL: Create `image_processor` DB and run schema from `schema.sql`.
+  - Update `config.py` with DB credentials.
+  - Run: `uvicorn main:app --reload`
+- **API Endpoints**:
+  - `POST /upload`: Upload CSV, returns `request_id`.
+  - `GET /status/{request_id}`: Check processing status.
+- **Database**:
+  - Tables: `processing_requests`, `products`.
+- **Usage**:
+  - Upload CSV with columns: `S. No.`, `Product Name`, `Input Image Urls`.
+  - Monitor status via `/status` endpoint.
+- **Notes**:
+  - Processed images saved to `processed_images/`.
+  - No Redis/Celery used—minimal setup with asyncio.
